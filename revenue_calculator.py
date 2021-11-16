@@ -16,17 +16,24 @@ def calculate_revenue(f):
             reader = csv.reader(file)
             for row in reader:
                 if row:
+                    #==========================================================================#
+                    # Add any revenue/income which you do not want to account for into the set.
+                    # =========================================================================#
                     find_resurgence_payment = row[5].strip()
                     find_rental_income = row[5].strip()
-                    if 'msd' in find_resurgence_payment.lower() or 'rsp' in find_resurgence_payment.lower() or 'resurgence' in find_resurgence_payment.lower():
+                    unaccountable_income = {'msd', 'rsp', 'rent', 'resurgence'}
+                    if find_resurgence_payment.lower() in unaccountable_income:
                         if row[-1] == '':
                             resurgence_payments.append([find_resurgence_payment.upper(), 'Removed from CSV'])
                         else:
                             resurgence_payments.append([find_resurgence_payment.upper(), float(row[-1])])
                         found_non_revenue_item = True
 
-                    if 'from pakuranga sub' in find_rental_income.lower() or 'subway' in find_rental_income.lower():
-                        rental_income.append([find_rental_income.upper(), float(row[-1])])
+                    if 'rent' in find_rental_income.lower():
+                        if row[-1] == '':
+                            rental_income.append([find_rental_income.upper(), 'Removed from CSV'])
+                        else:
+                            rental_income.append([find_rental_income.upper(), float(row[-1])])
                         found_non_revenue_item = True
 
                     if found_non_revenue_item:
