@@ -14,14 +14,20 @@ def calculate_revenue(f):
             file_name = str(file.name)
             period = file_name[file_name.rfind('/') + 1:-4].replace('_', " ").replace('-', ' ').strip().replace("  ", " ")
             reader = csv.reader(file)
+            unaccountable_income = set()
+            user_done = False
+            while not user_done:
+                get_unaccountable_income = input(
+                    'Enter keyword for income/revenue which you do not want to account for: ')
+                if get_unaccountable_income == '' or get_unaccountable_income.strip() is None:
+                    print(get_unaccountable_income)
+                    user_done = True
+                else:
+                    unaccountable_income.add(get_unaccountable_income.strip())
             for row in reader:
                 if row:
-                    #==========================================================================#
-                    # Add any revenue/income which you do not want to account for into the set.
-                    # =========================================================================#
                     find_resurgence_payment = row[5].strip()
                     find_rental_income = row[5].strip()
-                    unaccountable_income = {'msd', 'rsp', 'rent', 'resurgence'}
                     if find_resurgence_payment.lower() in unaccountable_income:
                         if row[-1] == '':
                             resurgence_payments.append([find_resurgence_payment.upper(), 'Removed from CSV'])
