@@ -24,3 +24,6 @@ Hence, I decided to build an application that can quickly solve this problem and
 5. The application will provide detailed revenue information for all of the entered CSV files.
 6. You will be prompted to choose two periods for which to compare.
 7. Application will display detailed information regarding the difference in revenue and percentage loss/gain over the two chosen periods. 
+
+## Authors
+Ish Gill
